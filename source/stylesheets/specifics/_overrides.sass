@@ -1,0 +1,32 @@
+/** Slick **/
+.slide
+  &:focus
+    outline: none
+
+.slick-dots
+  margin-top: $b-space-s*-1
+  position: relative
+  text-align: center
+  z-index: $stratum-high
+
+  li
+    display: inline-block
+
+    &.slick-active
+      button
+        background: $smoke-white
+
+  button
+    background: rgba($black-olive, .5)
+    border: none
+    border-radius: 50%
+    cursor: pointer
+    height: rem(10)
+    margin: 0 $b-space-xxs
+    overflow: hidden
+    padding: 0
+    text-indent: -9999px
+    width: rem(10)
+
+    &:focus
+      outline: none

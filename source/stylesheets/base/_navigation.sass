@@ -1,0 +1,40 @@
+nav
+  @include display(flex)
+  @include align-items(center)
+  @include justify-content(center)
+  @include transition(height .5s ease-out)
+  background: $smoke-white
+  height: 0
+  left: 0
+  overflow: hidden
+  text-align: center
+  top: 0
+  z-index: $stratum-top + 1
+  width: 100%
+
+  .l-nav--tree,
+  .l-nav--trigger
+    @include transition(opacity .5s ease-out)
+    opacity: 0
+
+  .l-nav--trigger
+    @include transform(translateY(0))
+    left: $b-space-xs
+    top: $b-space-xs
+
+    span
+      color: $black
+
+  .l-nav--work
+    color: $tufts-blue
+
+  .l-nav--about
+    .has-highlighter.inverted a
+      color: $verdigris
+
+  &.open
+    height: 100vh
+
+    .l-nav--tree,
+    .l-nav--trigger
+      opacity: 1

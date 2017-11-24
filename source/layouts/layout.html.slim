@@ -1,0 +1,21 @@
+doctype html
+html
+  head
+    meta content="IE=edge" http-equiv="X-UA-Compatible"
+    meta charset="utf-8"
+    meta content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport"
+
+    title
+      = "Bulletin"
+
+    = javascript_include_tag :site
+
+    link href="https://fonts.googleapis.com/css?family=Roboto:700i,900i" rel="stylesheet"
+
+    link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"
+
+    = stylesheet_link_tag :site
+
+  body
+    main
+      = yield

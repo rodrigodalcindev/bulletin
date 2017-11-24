@@ -6,12 +6,11 @@ title: Bulletin
   .container
     h1 Bulletin
     .md-col-8.md-offset-2
-      h3 Useful Links
       ul
         - data.bulletin.entry.each do |id, entry|
           li
-            = entry["title"]
-            br
+            h3
+              = entry["title"]
             = entry["date"]
             br
             img src="#{entry['image']['url']}" width="500" height="auto"

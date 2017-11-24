@@ -1,0 +1,26 @@
+---
+title: Bulletin
+---
+
+.jumbotron
+  .container
+    h1 Bulletin
+    .md-col-8.md-offset-2
+      h3 Useful Links
+      ul
+        - data.bulletin.entry.each do |id, entry|
+          li
+            = entry["title"]
+            br
+            = entry["date"]
+            br
+            img src="#{entry['image']['url']}" width="500" height="auto"
+            p
+              = entry["text"]
+            br
+            h3 Location
+            ul
+              li
+                = "Latitude: #{entry['location']['lat']}"
+              li
+                = "Longitude: #{entry['location']['lon']}"

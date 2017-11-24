@@ -1,12 +1,14 @@
 # Activate and configure extensions
 # https://middlemanapp.com/advanced/configuration/#configuring-extensions
+activate :dotenv
+
 activate :autoprefixer do |prefix|
   prefix.browsers = "last 2 versions"
 end
 
 activate :contentful do |f|
-  f.access_token = "b7606d9bc9a5ff536e068d3c0265a3f7428b354a47d4182d32e9f13cb19bc113"
-  f.space = {bulletin: "tdt67exn6060"}
+  f.access_token = ENV['CONTENTFUL_TOKEN']
+  f.space = {bulletin: ENV['CONTENTFUL_SPACE']}
   f.content_types = { entry: "entry" }
   f.cda_query = {content_type: "entry"}
 end

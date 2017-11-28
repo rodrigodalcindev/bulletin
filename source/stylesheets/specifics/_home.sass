@@ -1,101 +1,280 @@
-.s-home
-  section
-    min-height: rem(199)
-    width: 100%
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro")
 
-    &.s-home--work
-      background: $tufts-blue
+*
+  box-sizing: border-box
+  &::after, &::before
+    box-sizing: border-box
 
-    &.s-home--about
-      background: $verdigris
+html
+  font-size: 62.5%
 
-      @include respond-to("bp--0")
-        height: 15vh
-        min-height: 0
+body
+  font-size: 1.6rem
+  font-family: "Source Sans Pro", sans-serif
+  color: #383838
+  background-color: #f8f8f8
 
-    &:not(.s-home--work)
-      @include display(flex)
-      @include align-items(center)
-      @include justify-content(center)
+a
+  color: #7b9d6f
+  text-decoration: none
 
-    h1
-      color: $white
-
-.s-home--work
-  ul
-    margin-top: rem(175)
-
-  @include respond-to("bp--3")
-    ul
-      margin-top: rem(110)
-
-  @include respond-to("bp--2")
-    ul
-      margin-top: 0
-
-      li
-        display: block
-        margin: $b-space-l 0 0
-        padding: 0 $b-space-xs
-
-        &:first-child
-          margin-top: 0
-
-  @include respond-to("bp--2")
-    padding: $b-space-xl 0
-
-.s-home--card
-  @include transition(box-shadow .5s ease-out)
-  box-shadow: 0px 0px 0px 0px rgba($black, 0)
-  background: $smoke-white
-  max-width: rem(420)
-  width: 100%
-
-  &:hover
-    box-shadow: 5px 5px 0px 0px rgba($black, 0.15)
-
-  figure
-    padding-top: rem(145)
-
-  img
-    @include transform(translate(-50%, -100%))
-    left: 50%
-    top: rem(115)
-    width: 100%
-
-    &[src*="greetabl"]
-      width: 75%
-
-  @include respond-to("bp--3")
-    max-width: rem(340)
-
-    p:not(.lead)
-      font-size: rem(14)
-
-  @include respond-to("bp--2")
-    max-width: rem(800)
-    min-width: rem(300)
+.cd-horizontal-timeline
+  opacity: 0
+  margin: 2em auto
+  transition: opacity 0.2s
+  &::before
+    /* never visible - this is used in jQuery to check the current MQ */
+    content: 'mobile'
+    display: none
+  &.loaded
+    /* show the timeline after events position has been set (using JavaScript) */
+    opacity: 1
+  .timeline
+    position: relative
+    height: 100px
+    width: 90%
+    max-width: 800px
     margin: 0 auto
-    padding: $b-space-l
+  .events-wrapper
+    position: relative
+    height: 100%
+    margin: 0 40px
+    overflow: hidden
+    &::after
+      /* these are used to create a shadow effect at the sides of the timeline */
+      content: ''
+      position: absolute
+      z-index: 2
+      top: 0
+      height: 100%
+      width: 20px
+    &::before
+      /* these are used to create a shadow effect at the sides of the timeline */
+      content: ''
+      position: absolute
+      z-index: 2
+      top: 0
+      height: 100%
+      width: 20px
+      left: 0
+      background-image: linear-gradient(to right, #f8f8f8, rgba(248, 248, 248, 0))
+    &::after
+      right: 0
+      background-image: linear-gradient(to left, #f8f8f8, rgba(248, 248, 248, 0))
+  .events
+    /* this is the grey line/timeline */
+    position: absolute
+    z-index: 1
+    left: 0
+    top: 49px
+    height: 2px
+    /* width will be set using JavaScript */
+    background: #dfdfdf
+    transition: transform 0.4s
+  .filling-line
+    /* this is used to create the green line filling the timeline */
+    position: absolute
+    z-index: 1
+    left: 0
+    top: 0
+    height: 100%
+    width: 100%
+    background-color: #7b9d6f
+    transform: scaleX(0)
+    transform-origin: left center
+    transition: transform 0.3s
+  .events a
+    position: absolute
+    bottom: 0
+    z-index: 2
+    text-align: center
+    font-size: 1.3rem
+    padding-bottom: 15px
+    color: #383838
+    /* fix bug on Safari - text flickering while timeline translates */
+    transform: translateZ(0)
+    &::after
+      /* this is used to create the event spot */
+      content: ''
+      position: absolute
+      left: 50%
+      right: auto
+      transform: translateX(-50%)
+      bottom: -5px
+      height: 12px
+      width: 12px
+      border-radius: 50%
+      border: 2px solid #dfdfdf
+      background-color: #f8f8f8
+      transition: background-color 0.3s, border-color 0.3s
 
-    figure
-      padding: 0
+.no-touch .cd-horizontal-timeline .events a:hover::after
+  background-color: #7b9d6f
+  border-color: #7b9d6f
 
-    img
-      @include transform(translate(0,0))
-      margin: 0 auto $b-space-l
-      max-width: 100%
-      position: static
-      width: auto
+.cd-horizontal-timeline .events a
+  &.selected
+    pointer-events: none
+    &::after
+      background-color: #7b9d6f
+      border-color: #7b9d6f
+  &.older-event::after
+    border-color: #7b9d6f
 
-      &[src*="greetabl"]
-        width: auto
+@media only screen and (min-width: 1100px)
+  .cd-horizontal-timeline
+    margin: 6em auto
+    &::before
+      /* never visible - this is used in jQuery to check the current MQ */
+      content: 'desktop'
 
-    p:not(.lead)
-      font-size: rem(16)
+.cd-timeline-navigation a
+  /* these are the left/right arrows to navigate the timeline */
+  position: absolute
+  z-index: 1
+  top: 50%
+  bottom: auto
+  transform: translateY(-50%)
+  height: 34px
+  width: 34px
+  border-radius: 50%
+  border: 2px solid #dfdfdf
+  /* replace text with an icon */
+  overflow: hidden
+  color: transparent
+  text-indent: 100%
+  white-space: nowrap
+  transition: border-color 0.3s
+  &::after
+    /* arrow icon */
+    content: ''
+    position: absolute
+    height: 16px
+    width: 16px
+    left: 50%
+    top: 50%
+    bottom: auto
+    right: auto
+    transform: translateX(-50%) translateY(-50%)
+    /*background: url(../img/cd-arrow.svg) no-repeat 0 0*/
+  &.prev
+    left: 0
+    transform: translateY(-50%) rotate(180deg)
+  &.next
+    right: 0
 
-  @include respond-to("bp--0")
-    padding: $b-space
+.no-touch .cd-timeline-navigation a:hover
+  border-color: #7b9d6f
 
-    figure
-      margin-bottom: $b-space
+.cd-timeline-navigation a.inactive
+  cursor: not-allowed
+  &::after
+    background-position: 0 -16px
+
+.no-touch .cd-timeline-navigation a.inactive:hover
+  border-color: #dfdfdf
+
+.cd-horizontal-timeline .events-content
+  position: relative
+  width: 100%
+  margin: 2em 0
+  overflow: hidden
+  transition: height 0.4s
+  li
+    position: absolute
+    z-index: 1
+    width: 100%
+    left: 0
+    top: 0
+    transform: translateX(-100%)
+    padding: 0 5%
+    opacity: 0
+    animation-timing-function: ease-in-out
+    &.selected
+      /* visible event content */
+      position: relative
+      z-index: 2
+      opacity: 1
+      transform: translateX(0)
+    &.enter-right, &.leave-right
+      animation-name: cd-enter-right
+    &.enter-left, &.leave-left
+      animation-name: cd-enter-left
+    &.leave-right, &.leave-left
+      animation-direction: reverse
+    > *
+      max-width: 800px
+      margin: 0 auto
+  h2
+    font-weight: bold
+    font-size: 2.6rem
+    font-family: "Playfair Display", serif
+    font-weight: 700
+    line-height: 1.2
+  em
+    display: block
+    font-style: italic
+    margin: 10px auto
+    &::before
+      content: '- '
+  p
+    font-size: 1.4rem
+    color: #959595
+  em, p
+    line-height: 1.6
+
+@media only screen and (min-width: 768px)
+  .cd-horizontal-timeline .events-content
+    h2
+      font-size: 7rem
+    em
+      font-size: 2rem
+    p
+      font-size: 1.8rem
+
+@-webkit-keyframes cd-enter-right
+  0%
+    opacity: 0
+
+  100%
+    opacity: 1
+
+@-moz-keyframes cd-enter-right
+  0%
+    opacity: 0
+
+  100%
+    opacity: 1
+
+@keyframes cd-enter-right
+  0%
+    opacity: 0
+    transform: translateX(100%)
+
+  100%
+    opacity: 1
+    transform: translateX(0%)
+
+
+@-webkit-keyframes cd-enter-left
+  0%
+    opacity: 0
+
+  100%
+    opacity: 1
+
+@-moz-keyframes cd-enter-left
+  0%
+    opacity: 0
+
+  100%
+    opacity: 1
+
+@keyframes cd-enter-left
+  0%
+    opacity: 0
+    transform: translateX(-100%)
+
+  100%
+    opacity: 1
+    transform: translateX(0%)

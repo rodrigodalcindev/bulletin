@@ -14,6 +14,17 @@ activate :contentful do |f|
   f.cda_query = {content_type: "entry"}
 end
 
+# Helpers
+helpers do
+  def data_date(date)
+    return DateTime.parse(date).to_date.strftime("%d/%m/%Y")
+  end
+
+  def output_date(date)
+    return DateTime.parse(date).to_date.strftime("%d %b %Y")
+  end
+end
+
 # Per-page layout changes
 page '/*.xml', layout: false
 page '/*.json', layout: false

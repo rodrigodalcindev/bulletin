@@ -7,9 +7,9 @@ section.cd-horizontal-timeline
     .events-wrapper
       .events
         ol
-          - data.bulletin.entry.each do |id, entry|
+          - ordered_entries(data.bulletin.entry).each do |id, entry|
             li
-              a class="#{'selected' unless data.bulletin.entry.first[1].id != entry.id}" data-date="#{data_date(entry["_meta"]["created_at"])}" href="#0"
+              a class="#{'selected' unless ordered_entries(data.bulletin.entry).last[1].id != entry.id}" data-date="#{data_date(entry["_meta"]["created_at"])}" href="#0"
                 = output_date(entry["_meta"]["created_at"])
         span.filling-line aria-hidden="true"
       /! .events
@@ -23,8 +23,8 @@ section.cd-horizontal-timeline
   /! .timeline
   .events-content
     ol
-      - data.bulletin.entry.each do |id, entry|
-        li class="#{'selected' unless data.bulletin.entry.first[1].id != entry.id}" data-date="#{data_date(entry["_meta"]["created_at"])}"
+      - ordered_entries(data.bulletin.entry).each do |id, entry|
+        li class="#{'selected' unless ordered_entries(data.bulletin.entry).last[1].id != entry.id}" data-date="#{data_date(entry["_meta"]["created_at"])}"
           h2
             = entry["title"]
           em

@@ -16,6 +16,10 @@ end
 
 # Helpers
 helpers do
+  def ordered_entries(entries)
+    return entries.to_a.sort_by{ |id, e| e['date'] }
+  end
+
   def data_date(date)
     return DateTime.parse(date).to_date.strftime("%d/%m/%Y")
   end

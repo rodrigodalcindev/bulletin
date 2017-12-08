@@ -16,6 +16,13 @@ end
 
 # Helpers
 helpers do
+  def days_to_past(date)
+    moveDate = Date.parse('29-12-2017')
+    todayDate = Date.today
+    postDate = date.to_date
+    return (postDate.mjd - moveDate.mjd)
+  end
+
   def ordered_entries(entries)
     return entries.to_a.sort_by{ |id, e| e['date'] }
   end

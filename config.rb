@@ -16,7 +16,7 @@ end
 
 if Dir.exist?(File.join(config.data_dir, 'bulletin'))
   data.bulletin.entry.each do |id, entry|
-    proxy "/#{entry.title.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')}", "/entry.html", locals: {entry: entry}, ignore: true
+    proxy "/entries/#{entry.title.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')}/index.html", "/entries/template.html", locals: {entry: entry}, ignore: true
   end
 end
 
@@ -30,7 +30,11 @@ helpers do
   end
 
   def ordered_entries(entries)
-    return entries.to_a.sort_by{ |id, e| e['date'] }
+    return entries.to_a.sort_by{ |id, e| e['date'] }.reverse!
+  end
+
+  def last_entry(entries)
+    return ordered_entries(entries).first[1]
   end
 
   def data_date(date)

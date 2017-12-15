@@ -16,3 +16,6 @@ title: Bulletin
             img src="#{entry['image']['url']}" width="500" height="auto"
             p
               = entry["text"]
+
+            a href="/#{entry.title.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')}"
+              = "Link"

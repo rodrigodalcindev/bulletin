@@ -14,6 +14,12 @@ activate :contentful do |f|
   f.cda_query = {content_type: "entry"}
 end
 
+if Dir.exist?(File.join(config.data_dir, 'bulletin'))
+  data.bulletin.entry.each do |id, entry|
+    proxy "/#{entry.title.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')}", "/entry.html", locals: {entry: entry}, ignore: true
+  end
+end
+
 # Per-page layout changes
 page '/*.xml', layout: false
 page '/*.json', layout: false

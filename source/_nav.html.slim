@@ -1,0 +1,6 @@
+ul
+  - ordered_entries(data.bulletin.entry).each do |id, entry|
+    li
+      = link_to "/entries/#{entry.title.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')}/index.html" do
+        h3
+          = "Day #{days_to_past(entry["date"])}"

@@ -1,7 +1,8 @@
-h3
+h3.title.mbxxs
   = entry["title"]
-= entry["date"]
-br
-img src="#{entry['image']['url']}" width="500" height="auto"
-p
-  = entry["text"]
+span.date.db.mbxs
+  = output_date(entry["date"].to_s)
+figure.mbxxs
+  img src="#{entry['image']['url']}" width="500" height="auto"
+.body
+  = Kramdown::Document.new(entry["text"]).to_html

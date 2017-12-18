@@ -4,8 +4,8 @@ title: Bulletin
 
 - latest = last_entry(data.bulletin.entry)
 
-.container
-  h1 Bulletin
+.container.plm.prm
+  h1.mbl Bulletin
 
-  .md-col-8.md-offset-2
+  .post
     = partial("entries/entry", :locals => { :entry => latest })

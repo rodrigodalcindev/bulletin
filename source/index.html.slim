@@ -2,17 +2,10 @@
 title: Bulletin
 ---
 
-.jumbotron
-  .container
-    h1 Bulletin
-    .md-col-8.md-offset-2
-      ul
-        - data.bulletin.entry.each do |id, entry|
-          li
-            h3
-              = entry["title"]
-            = entry["date"]
-            br
-            img src="#{entry['image']['url']}" width="500" height="auto"
-            p
-              = entry["text"]
+- latest = last_entry(data.bulletin.entry)
+
+.container.plm.prm
+  h1.mbl Bulletin
+
+  .post
+    = partial("entries/entry", :locals => { :entry => latest })

@@ -1,40 +1,32 @@
 nav
-  @include display(flex)
-  @include align-items(center)
-  @include justify-content(center)
-  @include transition(height .5s ease-out)
-  background: $smoke-white
-  height: 0
-  left: 0
-  overflow: hidden
-  text-align: center
+  background: $dark-grey url('/images/shattered-island.gif')
+  height: 100%
+  overflow: scroll
+  right: 0
   top: 0
-  z-index: $stratum-top + 1
   width: 100%
 
-  .l-nav--tree,
-  .l-nav--trigger
-    @include transition(opacity .5s ease-out)
-    opacity: 0
+  a
+    color: $white
+    text-decoration: none
 
-  .l-nav--trigger
-    @include transform(translateY(0))
-    left: $b-space-xs
-    top: $b-space-xs
+    &:hover
+      text-decoration: underline
 
-    span
-      color: $black
+  .trigger
+    color: $smoke-white
 
-  .l-nav--work
-    color: $tufts-blue
+.trigger
+  cursor: pointer
+  right: $b-space-xs
+  top: $b-space-xl
 
-  .l-nav--about
-    .has-highlighter.inverted a
-      color: $verdigris
+  i
+    font-size: rem(38)
+    line-height: 0
 
-  &.open
-    height: 100vh
-
-    .l-nav--tree,
-    .l-nav--trigger
-      opacity: 1
+  span
+    font-family: $font-family-heading
+    font-size: rem(14)
+    font-style: italic
+    font-weight: $font-weight-black

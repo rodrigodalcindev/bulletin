@@ -14,6 +14,42 @@ activate :contentful do |f|
   f.cda_query = {content_type: "entry"}
 end
 
+if Dir.exist?(File.join(config.data_dir, 'bulletin'))
+  data.bulletin.entry.each do |id, entry|
+    proxy "/entries/#{entry.title.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')}/index.html", "/entries/template.html", locals: {entry: entry}, ignore: true
+  end
+end
+
+# Helpers
+helpers do
+  def days_to_past(date)
+    moveDate = Date.parse('29-12-2017')
+    todayDate = Date.today
+    postDate = date.to_date
+    return (postDate.mjd - moveDate.mjd)
+  end
+
+  def ordered_entries(entries)
+    return entries.to_a.sort_by{ |id, e| e['date'] }.reverse!
+  end
+
+  def last_entry(entries)
+    return ordered_entries(entries).first[1]
+  end
+
+  def data_date(date)
+    return DateTime.parse(date).to_date.strftime("%d/%m/%Y")
+  end
+
+  def output_date(date)
+    return DateTime.parse(date).to_date.strftime("%d %b %Y")
+  end
+
+  def slugify(string)
+    return string.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')
+  end
+end
+
 # Per-page layout changes
 page '/*.xml', layout: false
 page '/*.json', layout: false
